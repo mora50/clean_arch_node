@@ -1,14 +1,14 @@
 import bcrypt from "bcrypt";
 import "dotenv/config";
 import express, { Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import "express-async-errors";
 import mongoose from "mongoose";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
+import errorHandler from "./middlewares/errorHandler";
+import LoginUserUseCase from "./modules/auth/domain/usecases/LoginUserUseCase";
 import { UserModel } from "./modules/auth/models/User";
 const app = express();
 app.use(express.json());
-
-const port = 3000;
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ msg: "Hello World!" });
@@ -88,34 +88,15 @@ app.get(
 app.post("/auth/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  if (!email) {
-    return res.status(422).json({ msg: "O email é obrigatório" });
-  }
-  if (!password) {
-    return res.status(422).json({ msg: "O password é obrigatório" });
-  }
+  const loginUserUseCase = new LoginUserUseCase();
 
-  const user = await UserModel.findOne({ email });
-  if (!user) {
-    return res.status(404).json({ msg: "Usuário não encontrado" });
-  }
+  const token = await loginUserUseCase.execute({ email, password });
 
-  const checkPassword = await bcrypt.compare(password, user!.password);
-
-  if (!checkPassword) {
-    return res.status(422).json({ msg: "Senha incorreta" });
-  }
-
-  try {
-    const secret = process.env.JWT_SECRET;
-    const token = jwt.sign({ id: user._id }, secret!);
-
-    res.status(200).json({ msg: "Autenticado com sucesso!", token });
-  } catch (error) {
-    res.status(500).json({ msg: "Erro" });
-  }
-
-  res.end();
+  return res.status(200).json(token);
 });
+
+const port = 3000;
+
+app.use(errorHandler);
 
 app.listen(port);
