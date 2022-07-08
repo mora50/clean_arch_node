@@ -3,7 +3,8 @@ import "dotenv/config";
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import User from "./modules/auth/models/User";
+import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
+import { UserModel } from "./modules/auth/models/User";
 const app = express();
 app.use(express.json());
 
@@ -42,7 +43,7 @@ app.post("/auth/register", async (req: Request, res: Response) => {
   if (confirm_password !== password)
     return res.status(422).json({ msg: "Os passwords não são iguais" });
 
-  const userExists = await User.findOne({ email });
+  const userExists = await UserModel.findOne({ email });
 
   if (userExists) {
     return res.status(422).json({ msg: "Por favor, utilize outro e-mail" });
@@ -51,7 +52,7 @@ app.post("/auth/register", async (req: Request, res: Response) => {
 
   const passwordHash = await bcrypt.hash(password, salt);
 
-  const user = new User({
+  const user = new UserModel({
     name,
     email,
     password: passwordHash,
@@ -69,17 +70,20 @@ app.post("/auth/register", async (req: Request, res: Response) => {
 });
 
 //Private route
-app.get("/user/:id", async (req: Request, res: Response) => {
-  const id = req.params.id;
+app.get(
+  "/user/:id",
+  ensureAuthenticated,
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
 
-  const user = await User.findById(id, "-password");
+    const user = await UserModel.findById(id, "-password");
 
-  if (!user) {
-    return res.status(404).json({ msg: "Usuário não encontrado" });
+    if (!user) {
+      return res.status(404).json({ msg: "Usuário não encontrado" });
+    }
+    return res.status(200).json({ user });
   }
-
-  res.status(200).json({ user });
-});
+);
 
 app.post("/auth/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -91,7 +95,7 @@ app.post("/auth/login", async (req: Request, res: Response) => {
     return res.status(422).json({ msg: "O password é obrigatório" });
   }
 
-  const user = await User.findOne({ email });
+  const user = await UserModel.findOne({ email });
   if (!user) {
     return res.status(404).json({ msg: "Usuário não encontrado" });
   }
