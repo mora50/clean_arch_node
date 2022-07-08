@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 import errorHandler from "./middlewares/errorHandler";
 import LoginUserUseCase from "./modules/auth/domain/usecases/LoginUserUseCase";
+import RegisterUserUseCase from "./modules/auth/domain/usecases/RegisterUserUseCase";
 import { UserModel } from "./modules/auth/models/User";
 const app = express();
 app.use(express.json());
@@ -30,43 +31,14 @@ mongoose
 app.post("/auth/register", async (req: Request, res: Response) => {
   const { name, email, password, confirm_password } = req.body;
 
-  if (!name) {
-    return res.status(422).json({ msg: "O nome é obrigatório" });
-  }
-  if (!email) {
-    return res.status(422).json({ msg: "O email é obrigatório" });
-  }
-  if (!password) {
-    return res.status(422).json({ msg: "O password é obrigatório" });
-  }
+  const registerUserUseCase = new RegisterUserUseCase();
 
-  if (confirm_password !== password)
-    return res.status(422).json({ msg: "Os passwords não são iguais" });
+  const response = await registerUserUseCase.execute(
+    { name, email, password },
+    confirm_password
+  );
 
-  const userExists = await UserModel.findOne({ email });
-
-  if (userExists) {
-    return res.status(422).json({ msg: "Por favor, utilize outro e-mail" });
-  }
-  const salt = await bcrypt.genSalt(12);
-
-  const passwordHash = await bcrypt.hash(password, salt);
-
-  const user = new UserModel({
-    name,
-    email,
-    password: passwordHash,
-  });
-
-  try {
-    await user.save();
-
-    res.status(201).json({ msg: "Usuário criado com sucesso" });
-  } catch (error) {
-    res.status(500).json({ msg: "Erro" });
-  }
-
-  res.end();
+  return res.status(200).json(response);
 });
 
 //Private route
