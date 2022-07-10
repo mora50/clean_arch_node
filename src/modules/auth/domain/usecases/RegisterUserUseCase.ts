@@ -1,8 +1,8 @@
-import UnprocessableEntityError from "../../../../shared/errors/unprocessable";
-import { UserModel } from "../../infra/models/User";
+import UnprocessableEntityError from "../../../../providers/errors/unprocessable";
+import { UserSchema } from "../../infra/schemas/UserSchema";
 import User from "../entities/User";
 import bcrypt from "bcrypt";
-import BaseError from "../../../../shared/errors/baseError";
+import BaseError from "../../../../providers/errors/baseError";
 export default class RegisterUserUseCase {
   constructor(/* private userRepository: UserRepository */) {}
 
@@ -27,7 +27,7 @@ export default class RegisterUserUseCase {
       throw new UnprocessableEntityError("Password does not match");
     }
 
-    const userExists = await UserModel.findOne({ email });
+    const userExists = await UserSchema.findOne({ email });
 
     if (userExists) {
       throw new UnprocessableEntityError("Please use another e-mail");
@@ -36,7 +36,7 @@ export default class RegisterUserUseCase {
 
     const passwordHash = await bcrypt.hash(password, salt);
 
-    const userModel = new UserModel({
+    const userModel = new UserSchema({
       name,
       email,
       password: passwordHash,

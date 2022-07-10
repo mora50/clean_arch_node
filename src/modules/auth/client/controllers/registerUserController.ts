@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import RegisterUserUseCase from "../../domain/usecases/RegisterUserUseCase";
 
 export default class RegisterUserController {
-  async handler(req: Request, res: Response) {
+  async handle(req: Request, res: Response) {
     const { name, email, password, confirm_password } = req.body;
 
     const registerUserUseCase = new RegisterUserUseCase();
@@ -12,6 +12,6 @@ export default class RegisterUserController {
       confirm_password
     );
 
-    return res.status(200).json(response);
+    return res.json(response);
   }
 }

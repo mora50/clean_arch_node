@@ -1,4 +1,11 @@
 import RegisterUserController from "./registerUserController";
 import LoginUserController from "./loginController";
 import GetUserController from "./getUserController";
-export { LoginUserController, RegisterUserController, GetUserController };
+import RefreshTokenControler from "./RefreshTokenController";
+
+export {
+  LoginUserController,
+  RegisterUserController,
+  GetUserController,
+  RefreshTokenControler,
+};

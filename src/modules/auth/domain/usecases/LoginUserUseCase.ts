@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import Unauthorized from "../../../../shared/errors/unauthorized";
-import { UserModel } from "../../infra/models/User";
+import Unauthorized from "../../../../providers/errors/unauthorized";
+import GenerateTokenProvider from "../../../../providers/GenerateTokenProvider";
+import RefreshTokenProvider from "../../../../providers/refreshTokenProvider";
+import { UserSchema } from "../../infra/schemas/UserSchema";
 import Token from "../entities/Token";
 import User from "../entities/User";
 
@@ -18,7 +19,7 @@ export default class LoginUserUseCase {
       throw Error("O password é obrigatório");
     }
 
-    const userExists = await UserModel.findOne({ email });
+    const userExists = await UserSchema.findOne({ email });
     if (!userExists) {
       throw Error("Usuário não encontrado");
     }
@@ -29,14 +30,15 @@ export default class LoginUserUseCase {
       throw new Unauthorized();
     }
 
-    try {
-      const secret = process.env.JWT_SECRET;
-      const token = jwt.sign({ id: userExists._id }, secret!);
+    const generateTokenProvider = new GenerateTokenProvider();
 
-      return { token };
-    } catch (error) {
-      throw Error("Falha ao autenticar");
-    }
+    const token = generateTokenProvider.execute(userExists.id);
+
+    const refreshTokenProvider = new RefreshTokenProvider();
+
+    const refreshToken = await refreshTokenProvider.execute(userExists.id);
+
+    return { token, refreshToken };
 
     // return this.userRepository.login(user);
   }

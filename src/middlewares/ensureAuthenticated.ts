@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import Unauthorized from "../shared/errors/unauthorized";
+import Unauthorized from "../providers/errors/unauthorized";
 
 const ensureAuthenticated = async (
   req: Request,
