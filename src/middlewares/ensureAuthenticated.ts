@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import Unauthorized from "../shared/errors/unauthorized";
 
 const ensureAuthenticated = async (
   req: Request,
@@ -8,12 +9,10 @@ const ensureAuthenticated = async (
 ) => {
   const authHeader = req.headers["authorization"];
 
-  console.log(authHeader);
-
   const token = authHeader?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ msg: "Não autorizado" });
+    throw new Unauthorized();
   }
 
   try {
@@ -23,7 +22,7 @@ const ensureAuthenticated = async (
 
     return next();
   } catch (error) {
-    return res.status(400).json({ msg: "Token inválido" });
+    throw new Unauthorized("Invalid token");
   }
 };
 

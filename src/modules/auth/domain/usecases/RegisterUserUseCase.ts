@@ -1,7 +1,6 @@
 import UnprocessableEntityError from "../../../../shared/errors/unprocessable";
-import { UserModel } from "../../models/User";
+import { UserModel } from "../../infra/models/User";
 import User from "../entities/User";
-import UserRepository from "../repositories/UserRepository";
 import bcrypt from "bcrypt";
 import BaseError from "../../../../shared/errors/baseError";
 export default class RegisterUserUseCase {

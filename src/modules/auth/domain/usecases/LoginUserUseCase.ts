@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Unauthorized from "../../../../shared/errors/unauthorized";
-import { UserModel } from "../../models/User";
+import { UserModel } from "../../infra/models/User";
 import Token from "../entities/Token";
 import User from "../entities/User";
 
