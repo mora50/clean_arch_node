@@ -1,9 +1,12 @@
 import UnprocessableEntityError from '@/providers/errors/unprocessable'
-import { UserSchema } from '../../infra/schemas/UserSchema'
+
 import User from '../entities/User'
 import bcrypt from 'bcrypt'
 import BaseError from '@/providers/errors/baseError'
+import UserRepository from '../repositories/UserRepository'
 export default class RegisterUserUseCase {
+  constructor (private readonly userRepository: UserRepository) {}
+
   async execute (user: User, confirmPassword: String): Promise<User> {
     const { name, email, password } = user
 
@@ -25,7 +28,7 @@ export default class RegisterUserUseCase {
       throw new UnprocessableEntityError('Password does not match')
     }
 
-    const userExists = await UserSchema.findOne({ email })
+    const userExists = await this.userRepository.findUserByEmail(email)
 
     if (userExists) {
       throw new UnprocessableEntityError('Please use another e-mail')
@@ -34,20 +37,14 @@ export default class RegisterUserUseCase {
 
     const passwordHash = await bcrypt.hash(password, salt)
 
-    const userModel = new UserSchema({
-      name,
-      email,
-      password: passwordHash
-    })
-
     try {
-      await userModel.save()
-
-      return user
+      return this.userRepository.save({
+        name,
+        email,
+        password: passwordHash
+      })
     } catch (error) {
       throw new BaseError('Please try again', 500)
     }
-
-    // return this.userRepository.save(user);
   }
 }
