@@ -1,8 +1,8 @@
-import RefreshToken from "./RefreshToken";
+import RefreshToken from './RefreshToken'
 
-export default class Token {
-  constructor(
-    public readonly token: string,
-    public readonly refreshToken: RefreshToken
-  ) {}
+type Token = {
+  token: string
+  refreshToken: RefreshToken
 }
+
+export default Token

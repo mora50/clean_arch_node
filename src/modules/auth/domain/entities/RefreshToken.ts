@@ -1,7 +1,7 @@
-export default class RefreshToken {
-  constructor(
-    public id: string,
-    public userId: string,
-    public expiresIn: number
-  ) {}
+type RefreshToken = {
+  id: string
+  userId: string
+  expiresIn: number
 }
+
+export default RefreshToken
