@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import RegisterUserUseCase from '../../domain/usecases/RegisterUserUseCase'
-import UserRepositoryImpl from '../../infra/repositories/UserRepository'
+import RegisterUserUseCase from '@/domain/usecases/RegisterUserUseCase'
+import UserRepositoryImpl from '@/infra/repositories/UserRepository'
 
 export class RegisterUserController {
   async handle (req: Request, res: Response): Promise<Response> {

@@ -1,5 +1,5 @@
-import BaseError from '../../../../providers/errors/baseError'
-import { UserSchema } from '../../infra/schemas/UserSchema'
+import BaseError from '@/providers/errors/baseError'
+import { UserSchema } from '@/infra/schemas/UserSchema'
 import User from '../entities/User'
 
 export default class GetUserUseCase {

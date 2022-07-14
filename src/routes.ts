@@ -5,7 +5,7 @@ import {
   LoginUserController,
   GetUserController,
   RefreshTokenControler
-} from './modules/auth/presentation/controllers'
+} from './presentation/controllers'
 
 const router = Router()
 

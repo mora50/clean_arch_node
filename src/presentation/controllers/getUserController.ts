@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import GetUserUseCase from '../../domain/usecases/GetUserUseCase'
+import GetUserUseCase from '@/domain/usecases/GetUserUseCase'
 
 export class GetUserController {
   async handle (req: Request, res: Response): Promise<Response> {

@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es2019" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "rootDir": "src",
+    "target": "es2019",
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"]
+      "@/*": [
+        "*"
+      ]
     },
-    "module": "commonjs" /* Specify what module code is generated. */,
-
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "outDir": "./dist",
-
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "./dist"
   },
-  "include": ["src"]
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

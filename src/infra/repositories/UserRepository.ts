@@ -1,5 +1,5 @@
-import User from '../../domain/entities/User'
-import UserRepository from '../../domain/repositories/UserRepository'
+import User from '@/domain/entities/User'
+import UserRepository from '@/domain/repositories/UserRepository'
 import { UserSchema } from '../schemas/UserSchema'
 
 export default class UserRepositoryImpl implements UserRepository {

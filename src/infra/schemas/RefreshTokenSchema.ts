@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose'
-import RefreshToken from '../../domain/entities/RefreshToken'
+import RefreshToken from '@/domain/entities/RefreshToken'
 
 const schema = new Schema<RefreshToken>(
   {

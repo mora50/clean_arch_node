@@ -4,6 +4,7 @@ import User from '../entities/User'
 import bcrypt from 'bcrypt'
 import BaseError from '@/providers/errors/baseError'
 import UserRepository from '../repositories/UserRepository'
+
 export default class RegisterUserUseCase {
   constructor (private readonly userRepository: UserRepository) {}
 

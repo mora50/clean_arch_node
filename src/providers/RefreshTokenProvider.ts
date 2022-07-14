@@ -1,6 +1,6 @@
+import { RefreshTokenSchema } from '@/infra/schemas/RefreshTokenSchema'
 import dayjs from 'dayjs'
-import RefreshToken from '../modules/auth/domain/entities/RefreshToken'
-import { RefreshTokenSchema } from '../modules/auth/infra/schemas/RefreshTokenSchema'
+import RefreshToken from '@/domain/entities/RefreshToken'
 
 export default class RefreshTokenProvider {
   async execute (userId: string): Promise<RefreshToken> {
