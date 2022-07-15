@@ -3,9 +3,9 @@ import 'dotenv/config'
 import express from 'express'
 import 'express-async-errors'
 
-import errorHandler from './middlewares/errorHandler'
+import errorHandler from '../middlewares/errorHandler'
 import { router } from './routes'
-import mongoDbConnection from './config/databaseConfig'
+import mongoDbConnection from '../config/databaseConfig'
 
 async function main (): Promise<void> {
   await mongoDbConnection()

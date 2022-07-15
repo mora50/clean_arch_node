@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { ensureAuthenticated } from './middlewares/ensureAuthenticated'
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import {
   RegisterUserController,
   LoginUserController,
   GetUserController,
   RefreshTokenControler
-} from './presentation/controllers'
+} from '../presentation/controllers'
 
 const router = Router()
 

@@ -4,11 +4,13 @@ import { UserSchema } from '../schemas/UserSchema'
 
 export default class UserRepositoryImpl implements UserRepository {
   async save (user: User): Promise<User> {
-    const userData = new UserSchema({
-      user
+    const userSchema = new UserSchema({
+      ...user
     })
 
-    return userData
+    const data = await userSchema.save()
+
+    return data
   }
 
   async findUserByEmail (email: String): Promise<User | null> {

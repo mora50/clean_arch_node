@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "server": "nodemon src/server.ts"
+    "server": "nodemon src/main/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,8 @@
     "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
     "mongoose": "^6.4.3",
-    "test": "^3.0.1"
+    "test": "^3.0.1",
+    "yup": "^0.32.11"
   },
   "_moduleAliases": {
     "@": "src"
