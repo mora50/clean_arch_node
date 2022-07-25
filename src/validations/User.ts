@@ -9,12 +9,14 @@ const userValidationObject = object({
     .oneOf([ref('password'), null], 'Passwords must match')
 })
 
-const validateUserFields = async (user: User, confirmPassword: string): Promise<{message: string} | null> => {
+const validateUserFields = async (user: UserValidation): Promise<{message: string} | null> => {
   try {
-    await userValidationObject.validate({ ...user, confirmPassword })
+    await userValidationObject.validate(user)
   } catch (error) {
     return { message: error.message }
   }
 }
+
+type UserValidation = User & {confirmPassword: string}
 
 export default validateUserFields

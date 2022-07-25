@@ -1,10 +1,12 @@
 import BaseError from '@/providers/errors/baseError'
-import { UserSchema } from '@/infra/schemas/UserSchema'
-import User from '../entities/User'
+import User from '@/domain/entities/User'
+import UserRepository from '@/domain/repositories/UserRepository'
 
 export default class GetUserUseCase {
+  constructor (private readonly userRepository: UserRepository) {}
+
   async execute (userId: string): Promise<User> {
-    const userExists = await UserSchema.findById(userId, '-password')
+    const userExists = await this.userRepository.findUserById(userId)
 
     if (!userExists) {
       throw new BaseError('User not found', 400)

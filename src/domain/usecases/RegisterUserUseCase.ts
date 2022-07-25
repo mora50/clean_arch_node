@@ -13,7 +13,7 @@ export default class RegisterUserUseCase {
   async execute (user: User, confirmPassword: string): Promise<User> {
     const { name, email, password } = user
 
-    const hasErrorOnFields = await validateUserFields(user, confirmPassword)
+    const hasErrorOnFields = await validateUserFields({ ...user, confirmPassword })
 
     if (hasErrorOnFields) {
       throw new UnprocessableEntityError(hasErrorOnFields.message)

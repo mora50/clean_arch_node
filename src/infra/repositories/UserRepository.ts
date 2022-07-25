@@ -3,6 +3,12 @@ import UserRepository from '@/domain/repositories/UserRepository'
 import { UserSchema } from '../schemas/UserSchema'
 
 export default class UserRepositoryImpl implements UserRepository {
+  async findUserById (userId: String): Promise<User | null> {
+    const userExists = await UserSchema.findById(userId, '-password')
+
+    return userExists
+  }
+
   async save (user: User): Promise<User> {
     const userSchema = new UserSchema({
       ...user
