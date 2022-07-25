@@ -1,10 +1,10 @@
 import { Router } from 'express'
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import {
-  RegisterUserController,
-  LoginUserController,
   GetUserController,
-  RefreshTokenControler
+  LoginUserController,
+  RefreshTokenControler,
+  RegisterUserController,
 } from '../presentation/controllers'
 
 const router = Router()

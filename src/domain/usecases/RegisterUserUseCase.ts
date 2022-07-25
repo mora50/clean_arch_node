@@ -3,17 +3,20 @@ import UnprocessableEntityError from '@/providers/errors/unprocessable'
 import User from '../entities/User'
 
 import BaseError from '@/providers/errors/baseError'
-import UserRepository from '../repositories/UserRepository'
 import passwordHashProvider from '@/providers/PasswordHashProvider'
 import validateUserFields from '@/validations/User'
+import UserRepository from '../repositories/UserRepository'
 
 export default class RegisterUserUseCase {
-  constructor (private readonly userRepository: UserRepository) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
-  async execute (user: User, confirmPassword: string): Promise<User> {
+  async execute(user: User, confirmPassword: string): Promise<User> {
     const { name, email, password } = user
 
-    const hasErrorOnFields = await validateUserFields({ ...user, confirmPassword })
+    const hasErrorOnFields = await validateUserFields({
+      ...user,
+      confirmPassword,
+    })
 
     if (hasErrorOnFields) {
       throw new UnprocessableEntityError(hasErrorOnFields.message)
@@ -21,7 +24,7 @@ export default class RegisterUserUseCase {
 
     const userExists = await this.userRepository.findUserByEmail(email)
     if (userExists) {
-      throw new UnprocessableEntityError('Please use another e-mail')
+      throw new BaseError('Email already in use', 409)
     }
 
     const passwordHash = await passwordHashProvider(password)
@@ -30,7 +33,7 @@ export default class RegisterUserUseCase {
       const response = await this.userRepository.save({
         name,
         email,
-        password: passwordHash
+        password: passwordHash,
       })
 
       return response

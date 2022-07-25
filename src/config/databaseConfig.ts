@@ -7,7 +7,7 @@ const mongoDbConnection = async (): Promise<void> => await mongoose.connect(
     `mongodb+srv://${dbUser}:${dbPassword}@cluster0.iveaj.mongodb.net/?retryWrites=true&w=majority`
 )
   .then(() => {
-    console.log('conectou no banco')
+    console.log('connected to bd')
   })
 
 export default mongoDbConnection

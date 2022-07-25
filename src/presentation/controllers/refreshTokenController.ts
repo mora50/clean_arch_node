@@ -1,8 +1,8 @@
-import { Request, Response } from 'express'
 import RefreshTokenUseCase from '@/domain/usecases/RefreshTokenUseCase'
+import { Request, Response } from 'express'
 
 export class RefreshTokenControler {
-  async handle (req: Request, res: Response): Promise<Response> {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { refresh_token: refreshToken } = req.body
 
     const refreshTokenUseCase = new RefreshTokenUseCase()

@@ -1,13 +1,13 @@
-import 'module-alias/register'
 import 'dotenv/config'
 import express from 'express'
 import 'express-async-errors'
+import 'module-alias/register'
 
+import mongoDbConnection from '../config/databaseConfig'
 import errorHandler from '../middlewares/errorHandler'
 import { router } from './routes'
-import mongoDbConnection from '../config/databaseConfig'
 
-async function main (): Promise<void> {
+async function main(): Promise<void> {
   await mongoDbConnection()
 
   const app = express()
@@ -18,4 +18,4 @@ async function main (): Promise<void> {
   app.listen(port)
 }
 
-main().catch(err => console.log(err))
+main()
