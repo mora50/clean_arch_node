@@ -2,7 +2,7 @@ import RefreshToken from './RefreshToken'
 
 type Token = {
   token: string
-  refreshToken: RefreshToken
+  refreshToken?: RefreshToken
 }
 
 export default Token

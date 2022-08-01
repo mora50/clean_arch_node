@@ -7,9 +7,9 @@ import User from '../entities/User'
 import UserRepository from '../repositories/UserRepository'
 
 export default class LoginUserUseCase {
-  constructor (private readonly userRepository: UserRepository) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
-  async execute (user: Pick<User, 'email' | 'password'>): Promise<Token> {
+  async execute(user: Pick<User, 'email' | 'password'>): Promise<Token> {
     const { email, password } = user
 
     if (!email) {

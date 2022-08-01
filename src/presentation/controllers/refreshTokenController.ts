@@ -1,14 +1,27 @@
-import RefreshTokenUseCase from '@/domain/usecases/RefreshTokenUseCase'
+import { SaveRefreshTokenUseCase } from '@/domain/usecases/SaveRefreshTokenUseCase'
+import ValidateRefreshTokenUseCase from '@/domain/usecases/ValidateRefreshTokenUseCase'
+import { TokenRepositoryImpl } from '@/infra/repositories/TokenRepository'
 import { Request, Response } from 'express'
 
 export class RefreshTokenControler {
   async handle(req: Request, res: Response): Promise<Response> {
     const { refresh_token: refreshToken } = req.body
 
-    const refreshTokenUseCase = new RefreshTokenUseCase()
+    const tokenRepository = new TokenRepositoryImpl()
 
-    const token = await refreshTokenUseCase.execute(refreshToken)
+    const validateRefreshTokenUseCase = new ValidateRefreshTokenUseCase()
 
-    return res.json({ token })
+    const { token, userId } = await validateRefreshTokenUseCase.execute(
+      refreshToken
+    )
+
+    const saveRefreshTokenUseCase = new SaveRefreshTokenUseCase(tokenRepository)
+
+    const newRefreshToken = await saveRefreshTokenUseCase.execute(
+      refreshToken,
+      userId
+    )
+
+    return res.json({ token, refreshToken: newRefreshToken })
   }
 }
