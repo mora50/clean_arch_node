@@ -10,7 +10,7 @@ export class LoginUserController {
 
     const loginUserUseCase = new LoginUserUseCase(userRepository)
 
-    const response = await loginUserUseCase.execute({ email, password })
+    const response = await loginUserUseCase.execute(email, password)
 
     return res.json(response)
   }

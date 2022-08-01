@@ -9,7 +9,9 @@ export class RefreshTokenControler {
 
     const tokenRepository = new TokenRepositoryImpl()
 
-    const validateRefreshTokenUseCase = new ValidateRefreshTokenUseCase()
+    const validateRefreshTokenUseCase = new ValidateRefreshTokenUseCase(
+      tokenRepository
+    )
 
     const { token, userId } = await validateRefreshTokenUseCase.execute(
       refreshToken

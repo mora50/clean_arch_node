@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import BaseError from '@/providers/errors/baseError'
+import BaseError from '@/domain/errors/baseError'
 
 const errorHandler = (
   error: BaseError,
@@ -9,7 +9,7 @@ const errorHandler = (
 ): Response => {
   return res.status(error.status ?? 400).json({
     name: error.name ?? 'Error',
-    message: error.message
+    message: error.message,
   })
 }
 

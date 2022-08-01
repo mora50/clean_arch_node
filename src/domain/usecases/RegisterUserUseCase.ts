@@ -1,10 +1,10 @@
-import UnprocessableEntityError from '@/providers/errors/unprocessable'
+import UnprocessableEntityError from '@/domain/errors/unprocessable'
 
 import User from '../entities/User'
 
-import BaseError from '@/providers/errors/baseError'
+import BaseError from '@/domain/errors/baseError'
 import passwordHashProvider from '@/providers/PasswordHashProvider'
-import validateUserFields from '@/validations/User'
+import { validateUserFields } from '@/validations/User'
 import UserRepository from '../repositories/UserRepository'
 
 export default class RegisterUserUseCase {

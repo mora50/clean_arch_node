@@ -1,13 +1,18 @@
-import Unauthorized from '@/providers/errors/unauthorized'
+import Unauthorized from '@/domain/errors/unauthorized'
 import { RefreshTokenSchema } from '@/infra/schemas/RefreshTokenSchema'
 import GenerateTokenProvider from '@/providers/GenerateTokenProvider'
 import Token from '../entities/Token'
-import BaseError from '@/providers/errors/baseError'
+import BaseError from '@/domain/errors/baseError'
 import dayjs from 'dayjs'
+import TokenRepository from '@/domain/repositories/TokenRepository'
 
 export default class ValidateRefreshTokenUseCase {
+  constructor(private readonly tokenRepository: TokenRepository) {}
+
   async execute(refreshToken: string): Promise<Input> {
-    const refreshTokenExists = await RefreshTokenSchema.findById(refreshToken)
+    const refreshTokenExists = await this.tokenRepository.findRefreshToken(
+      refreshToken
+    )
 
     if (!refreshTokenExists) {
       throw new Unauthorized()

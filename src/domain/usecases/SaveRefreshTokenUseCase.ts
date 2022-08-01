@@ -1,4 +1,4 @@
-import BaseError from '@/providers/errors/baseError'
+import BaseError from '@/domain/errors/baseError'
 import dayjs from 'dayjs'
 import RefreshToken from '@/domain/entities/RefreshToken'
 import TokenRepository from '../repositories/TokenRepository'
