@@ -6,7 +6,7 @@ export default class RefreshTokenProvider {
   async execute(userId: string): Promise<RefreshToken> {
     await RefreshTokenSchema.deleteMany({ userId })
 
-    const expiresIn = dayjs().add(20, 'seconds').unix()
+    const expiresIn = dayjs().add(15, 'days').unix()
 
     const refreshToken = await RefreshTokenSchema.create({
       userId,

@@ -1,5 +1,4 @@
 import Unauthorized from '@/domain/errors/unauthorized'
-import { RefreshTokenSchema } from '@/infra/schemas/RefreshTokenSchema'
 import GenerateTokenProvider from '@/providers/GenerateTokenProvider'
 import Token from '../entities/Token'
 import BaseError from '@/domain/errors/baseError'

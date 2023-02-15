@@ -6,7 +6,7 @@ describe('Register Use Case', () => {
     id: '1',
     name: 'teste',
     email: 'teste@teste.com.br',
-    password: '12345678'
+    password: '12345678',
   }
 
   beforeEach(() => {
@@ -28,6 +28,6 @@ describe('Register Use Case', () => {
 
     const response = sut.execute(userMock, '12345678')
 
-    await expect(response).rejects.toThrow('Please use another e-mail')
+    await expect(response).rejects.toThrow('Email already in use')
   })
 })
