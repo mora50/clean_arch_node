@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
-import Unauthorized from '@/domain/errors/unauthorized'
+import { Unauthorized } from 'http-errors'
 
 const ensureAuthenticated = async (
   req: Request,
@@ -15,12 +15,21 @@ const ensureAuthenticated = async (
     throw new Unauthorized()
   }
 
+  const userId = verifyToken(token)
+
+  if (userId) {
+    res.locals.userId = userId
+    next()
+  }
+}
+
+const verifyToken = (token: string): string => {
   try {
     const secret = process.env.JWT_SECRET
 
-    jwt.verify(token, secret)
+    const decoded = jwt.verify(token, secret)
 
-    next()
+    return decoded['id']
   } catch (error) {
     throw new Unauthorized('Invalid token')
   }

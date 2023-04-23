@@ -1,34 +1,37 @@
+import { client } from '@/config/postgresConfig'
 import RefreshToken from '@/domain/entities/RefreshToken'
 import TokenRepository from '@/domain/repositories/TokenRepository'
-import { RefreshTokenSchema } from '../schemas/RefreshTokenSchema'
 
 export class TokenRepositoryImpl implements TokenRepository {
-  async findRefreshToken(refreshToken: string): Promise<RefreshToken> {
-    try {
-      return await RefreshTokenSchema.findById(refreshToken)
-    } catch (error) {
-      return null
-    }
+  saveToken(userId: string, expiresIn: number): Promise<RefreshToken> {
+    throw new Error('Method not implemented.')
   }
-  async saveToken(userId: string, expiresIn: number): Promise<RefreshToken> {
+  async createRefreshToken(
+    userId: string,
+    expiresIn: number
+  ): Promise<RefreshToken> {
     try {
-      const refreshToken = await RefreshTokenSchema.create({
-        userId,
-        expiresIn,
-      })
-
+      const [refreshToken] = await client('refresh_tokens')
+        .insert({ user_id: userId, expires_in: expiresIn })
+        .returning(['id', 'expires_in'])
       return refreshToken
     } catch (error) {
       return null
     }
   }
-  async deleteRefreshToken(userId: string): Promise<boolean> {
+  async findRefreshToken(refreshToken: string): Promise<RefreshToken> {
     try {
-      await RefreshTokenSchema.deleteMany({ userId })
+      const token = await client('refresh_tokens')
+        .where({ id: refreshToken })
+        .first()
 
-      return true
+      return token
     } catch (error) {
-      return false
+      return null
     }
+  }
+
+  async deleteRefreshToken(userId: string): Promise<boolean> {
+    return await client('refresh_tokens').where({ user_id: userId }).delete()
   }
 }

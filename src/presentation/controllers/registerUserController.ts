@@ -1,5 +1,5 @@
 import RegisterUserUseCase from '@/domain/usecases/RegisterUserUseCase'
-import UserRepositoryImpl from '@/infra/repositories/UserRepository'
+import UsersGroupRepostoryImpl from '@/infra/repositories/UserRepository'
 import { Request, Response } from 'express'
 
 export class RegisterUserController {
@@ -10,15 +10,17 @@ export class RegisterUserController {
       password,
       confirm_password: confirmPassword,
     } = req.body
-    const userRepository = new UserRepositoryImpl()
+    const userRepository = new UsersGroupRepostoryImpl()
 
     const registerUserUseCase = new RegisterUserUseCase(userRepository)
 
-    const response = await registerUserUseCase.execute(
-      { name, email, password },
-      confirmPassword
-    )
+    const response = await registerUserUseCase.execute({
+      name,
+      email,
+      password,
+      confirmPassword,
+    })
 
-    return res.json(response)
+    return res.status(201).json(response)
   }
 }

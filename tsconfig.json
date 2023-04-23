@@ -3,18 +3,13 @@
     "target": "es2019",
     "baseUrl": "src",
     "paths": {
-      "@/*": [
-        "*"
-      ]
+      "@/*": ["*"]
     },
     "module": "commonjs",
     "esModuleInterop": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "typeRoots": ["src/index.d.ts", "./node_modules/@types"]
   },
-  "include": [
-    "."
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": [".", "./express.d.ts"],
+  "exclude": ["node_modules"]
 }

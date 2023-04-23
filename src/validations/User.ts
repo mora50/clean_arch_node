@@ -1,4 +1,4 @@
-import User from '@/domain/entities/User'
+import CreateUserInput from '@/domain/entities/CreateUserInput'
 import { object, ref, string } from 'yup'
 
 const loginValidationShape = object({
@@ -15,7 +15,7 @@ const userValidationShape = loginValidationShape.shape({
 })
 
 const validateUserFields = async (
-  user: UserValidation
+  user: CreateUserInput
 ): Promise<{ message: string } | null> => {
   try {
     await userValidationShape.validate(user)
@@ -31,7 +31,5 @@ const validateLoginFields = async (email: string, password: string) => {
     return { message: error.message }
   }
 }
-
-type UserValidation = User & { confirmPassword: string }
 
 export { validateLoginFields, validateUserFields }

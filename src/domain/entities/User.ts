@@ -1,8 +1,11 @@
-type User = {
-  id?: string
-  name: string
-  email: string
-  password: string
-}
+import BaseEntity from './BaseEntities'
 
-export default User
+export default class User extends BaseEntity {
+  constructor(
+    public name: string,
+    public email: string,
+    public password?: string
+  ) {
+    super()
+  }
+}
