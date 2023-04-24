@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "dev": "tsx src/main/server.ts",
-    "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+    "build": "npx tsc -p tsconfig.json && npx tsc-alias -p tsconfig.json",
     "server": "node dist/main/server.js "
   },
   "keywords": [],
