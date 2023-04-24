@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "17.7.1"
+  },
   "scripts": {
     "test": "jest",
-    "server": "nodemon src/main/server.ts"
+    "dev": "tsx src/main/server.ts",
+    "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+    "server": "node dist/main/server.js "
   },
   "keywords": [],
   "author": "",
@@ -19,16 +24,12 @@
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
     "knex": "^2.4.2",
-    "module-alias": "^2.2.2",
     "mongoose": "^6.4.3",
     "objection": "^3.0.1",
     "pg": "^8.10.0",
     "test": "^3.0.1",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
-  },
-  "_moduleAliases": {
-    "@": "src"
   },
   "devDependencies": {
     "@jest/types": "^28.1.1",
@@ -41,6 +42,7 @@
     "@types/pg": "^8.6.6",
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "aws-sdk": "^2.1363.0",
     "bcrypt": "^5.0.1",
     "eslint": "^8.19.0",
     "eslint-config-standard-with-typescript": "^22.0.0",
@@ -50,10 +52,14 @@
     "eslint-plugin-standard": "^5.0.0",
     "jest": "^28.1.2",
     "jest-module-name-mapper": "^0.1.5",
-    "nodemon": "^2.0.19",
+    "mock-aws-s3": "^4.0.2",
     "pg-migrate": "^2.0.1",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "ts-transform-paths": "^3.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^3.12.6",
     "typescript": "^4.7.4"
   }
 }

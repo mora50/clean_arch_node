@@ -2,6 +2,7 @@ import { Knex } from 'knex'
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable('users_group', function (table) {
+    table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
     table
       .uuid('user_id')
       .notNullable()
@@ -15,7 +16,6 @@ export async function up(knex: Knex): Promise<void> {
       .inTable('roles')
       .onDelete('CASCADE')
     table.string('name').notNullable()
-    table.primary(['user_id', 'role_id'])
   })
 }
 

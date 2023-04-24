@@ -10,7 +10,7 @@ export default class UsersGroupRepostoryImpl implements UsersGroupRepostory {
   async createGroup(usersGroup: UsersGroup): Promise<boolean> {
     const { name, users } = usersGroup
 
-    const query = client('users_groups').insert(
+    const query = client('users_group').insert(
       users.map(({ id, roleId }) => ({ user_id: id, role_id: roleId, name }))
     )
 

@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from 'express'
 import BaseError from '@/domain/errors/baseError'
+import { NextFunction, Request, Response } from 'express'
 
 const errorHandler = (
   error: BaseError,

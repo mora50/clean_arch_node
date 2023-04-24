@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es2019",
-    "baseUrl": "src",
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "target": "ES2020",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["./src/*"]
     },
     "module": "commonjs",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "outDir": "./dist",
-    "typeRoots": ["src/index.d.ts", "./node_modules/@types"]
+    "typeRoots": ["index.d.ts", "./node_modules/@types"]
   },
-  "include": [".", "./express.d.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

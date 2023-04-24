@@ -1,6 +1,6 @@
-import BaseError from '@/domain/errors/baseError'
-import User from '@/domain/entities/User'
-import UserRepository from '@/domain/repositories/UserRepository'
+import User from '../entities/User'
+import BaseError from '../errors/baseError'
+import UserRepository from '../repositories/UserRepository'
 
 export default class GetUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}

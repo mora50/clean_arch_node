@@ -16,6 +16,6 @@ export class CreateUsersGroupController {
     )
 
     const user = await createUsersGroupUseCase.execute(data, currentUserId)
-    return res.json({ worked: 'worked' })
+    return res.status(201).json({ worked: 'worked' })
   }
 }

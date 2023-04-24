@@ -3,7 +3,8 @@ import { knexSnakeCaseMappers } from 'objection'
 const client = Knex({
   client: 'pg',
   connection: {
-    host: 'localhost',
+    host: process.env.HOST_NAME,
+
     port: Number(process.env.DATABASE_PORT),
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
