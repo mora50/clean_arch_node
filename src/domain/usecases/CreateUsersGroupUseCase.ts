@@ -1,5 +1,6 @@
 import UsersGroup from '../entities/UsersGroup'
 import UsersGroupRepostory from '../repositories/UsersGroup'
+import { InternalServerError } from 'http-errors'
 
 export default class CreateUsersGroupUseCase {
   constructor(private readonly usersGroupRepostory: UsersGroupRepostory) {}
@@ -13,6 +14,12 @@ export default class CreateUsersGroupUseCase {
 
     data.segregateUsers(adminUserId)
 
-    await this.usersGroupRepostory.createGroup(data)
+    const createdGroup = await this.usersGroupRepostory.createGroup(data)
+
+    if (createdGroup) {
+      return createdGroup
+    }
+
+    throw InternalServerError()
   }
 }

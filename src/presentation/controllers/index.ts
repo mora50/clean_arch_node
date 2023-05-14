@@ -1,4 +1,5 @@
 export * from './createUsersGroupController'
+export * from './findUsersOnGroupController'
 export * from './getUserController'
 export * from './loginController'
 export * from './refreshTokenController'

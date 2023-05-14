@@ -45,6 +45,4 @@ const config: { [key: string]: Knex.Config } = {
   },
 }
 
-console.log(process.env.HOST_NAME)
-
 module.exports = config

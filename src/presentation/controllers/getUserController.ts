@@ -6,13 +6,9 @@ export class GetUserController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { userId } = res.locals
 
-    console.log({ userId })
+    const usersGroupRepostoryImpl = new UsersGroupRepostoryImpl()
 
-    // const userRepository = new UserRepositoryImpl()
-
-    const userRepositoryPg = new UsersGroupRepostoryImpl()
-
-    const getUserUseCase = new GetUserUseCase(userRepositoryPg)
+    const getUserUseCase = new GetUserUseCase(usersGroupRepostoryImpl)
 
     const user = await getUserUseCase.execute(userId)
     return res.json(user)

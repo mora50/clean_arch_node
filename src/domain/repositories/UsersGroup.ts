@@ -8,5 +8,5 @@ export default interface UsersGroupRepostory {
 
   removeUserFromGroup(userId: string): Promise<boolean>
 
-  findUserOnGroup(userId: string, groupId: string): Promise<User>
+  findUsersInGroup(groupId: string): Promise<User[]>
 }

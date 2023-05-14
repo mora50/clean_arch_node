@@ -3,9 +3,6 @@ import RefreshToken from '@/domain/entities/RefreshToken'
 import TokenRepository from '@/domain/repositories/TokenRepository'
 
 export class TokenRepositoryImpl implements TokenRepository {
-  saveToken(userId: string, expiresIn: number): Promise<RefreshToken> {
-    throw new Error('Method not implemented.')
-  }
   async createRefreshToken(
     userId: string,
     expiresIn: number
