@@ -56,7 +56,7 @@
     "jest": "^28.1.2",
     "jest-module-name-mapper": "^0.1.5",
     "mock-aws-s3": "^4.0.2",
-    "pg-migrate": "^2.0.1",
+    "pg-migrate": "^2.0.0",
     "swagger-jsdoc": "^6.2.8",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.9.1",
