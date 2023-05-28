@@ -43,9 +43,10 @@ export default class UsersGroupRepostoryImpl implements UsersGroupRepostory {
   async findUsersInGroup(groupId: string): Promise<UserGroupModel[]> {
     try {
       const users = await client
-        .select('name', 'email', 'role_id')
+        .select('users.name', 'users.email', 'roles.role_name')
         .from('users')
         .innerJoin('users_groups', 'users.id', 'users_groups.user_id')
+        .innerJoin('roles', 'users_groups.role_id', 'roles.id')
         .where('users_groups.group_id', groupId)
 
       return users

@@ -10,6 +10,7 @@ async function main(): Promise<void> {
 
   const app = express()
   app.use(express.json())
+
   app.use(router)
   app.use(errorHandler)
   const port = process.env.PORT || 3000
